@@ -2,6 +2,28 @@
 
 [![Build Status](https://travis-ci.org/talkincode/ToughRADIUS.svg?branch=master)](https://travis-ci.org/talkincode/ToughRADIUS)
 
+## 开发和部署指南
+
+由于依赖的软件较多，手动安装后，程序有些页面无法正常访问，怀疑是某些软件版本的问题，所以建议使用 docker 开发和部署程序。步骤如下：
+
+### requirements
+
+1. 安装docker: `yum install docker`
+
+### 开发
+
+1. 在 `tr-v2` 分支上进行开发，`commit` 后执行如下操作
+2. 切换到 `build/dev` 目录， 构建镜像 `docker build . -t toughradius:latest`
+3. 启动容器 `docker run -d -p 0.0.0.0:1815:1816 toughradius:latest`
+4. 开放服务器的1816 端口，浏览器访问 `服务器ip:1815` 即可访问管理系统
+
+## 上线
+
+1. 将 `tr-v2` 分支的代码合并到 `release` 分支
+2. 切换到 `build/dev` 目录， 构建镜像 `docker build . -t toughradius:release`
+4. 启动容器 `docker run -d -p 0.0.0.0:1816:1816 toughradius:release`
+5. 开放服务器的1816 端口，浏览器访问 `服务器ip:1816` 即可访问管理系统
+
 ## TOUGHRADIUS 简介
 
 TOUGHRADIUS是一个开源的Radius服务软件，采用 Apache License 2.0 许可协议发布。
